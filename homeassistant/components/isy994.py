@@ -113,11 +113,12 @@ class ISYDeviceABC(ToggleEntity):
     _dtype = None
     _domain = None
     _name = None
+    _hidden = False
 
     def __init__(self, node):
         # setup properties
         self.node = node
-        self.hidden = HIDDEN_STRING in self.raw_name
+        self._hidden = HIDDEN_STRING in self.raw_name
 
         # track changes
         self._change_handler = self.node.status. \
@@ -131,6 +132,10 @@ class ISYDeviceABC(ToggleEntity):
     def domain(self):
         """ Returns the domain of the entity. """
         return self._domain
+
+    @property
+    def hidden(self):
+        return self._hidden
 
     @property
     def dtype(self):
